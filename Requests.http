@@ -1,0 +1,33 @@
+### валидные данные
+POST http://localhost:8001/application
+Content-Type: application/json
+
+{
+  "amount": 100000,
+  "term": 12,
+  "firstName": "Anna",
+  "lastName": "Ivanova",
+  "middleName": "Sidorova",
+  "email": "anna@example.com",
+  "birthdate": "2002-05-07",
+  "passportSeries": "1234",
+  "passportNumber": "567890"
+}
+
+###
+PUT http://localhost:8001/application/offer
+Content-Type: application/json
+
+{
+    "applicationId": 1,
+    "requestedAmount": 100000,
+    "totalAmount": 100000,
+    "term": 12,
+    "monthlyPayment": 8675.74,
+    "rate": 7.5,
+    "isInsuranceEnabled": false,
+    "isSalaryClient": true
+}
+
+
+

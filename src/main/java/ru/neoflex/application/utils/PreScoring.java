@@ -3,6 +3,7 @@ package ru.neoflex.application.utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.neoflex.application.dto.request.LoanApplicationRequestDTO;
+import ru.neoflex.application.enums.ValidationMessages;
 import ru.neoflex.application.exception.InvalidDataException;
 import ru.neoflex.application.exception.ErrorMessage;
 
@@ -34,20 +35,20 @@ public class PreScoring {
         log.debug("PreScoring internal data: {}", loanApplicationRequestDTO);
         invalidInformation.clear();
 
-        checkInvalidInformation(isValidSum(loanApplicationRequestDTO.amount()), "Amount", "Amount must be greater than or equal to 10000");
-        checkInvalidInformation(isValidTerm(loanApplicationRequestDTO.term()), "Term", "Term must be greater than or equal to 6");
+        checkInvalidInformation(isValidSum(loanApplicationRequestDTO.amount()), ValidationMessages.AMOUNT.getField(), ValidationMessages.AMOUNT.getErrorMessage());
+        checkInvalidInformation(isValidTerm(loanApplicationRequestDTO.term()), ValidationMessages.TERM.getField(), ValidationMessages.TERM.getErrorMessage());
 
-        checkInvalidInformation(isValidName(loanApplicationRequestDTO.firstName()), "First Name", "Invalid first name format");
-        checkInvalidInformation(isValidName(loanApplicationRequestDTO.lastName()), "Last Name", "Invalid last name format");
+        checkInvalidInformation(isValidName(loanApplicationRequestDTO.firstName()), ValidationMessages.FIRST_NAME.getField(), ValidationMessages.FIRST_NAME.getErrorMessage());
+        checkInvalidInformation(isValidName(loanApplicationRequestDTO.lastName()), ValidationMessages.LAST_NAME.getField(), ValidationMessages.LAST_NAME.getErrorMessage());
 
         if (loanApplicationRequestDTO.middleName() != null )
-            checkInvalidInformation(isValidName(loanApplicationRequestDTO.middleName()), "Middle Name", "Invalid middle name format");
+            checkInvalidInformation(isValidName(loanApplicationRequestDTO.middleName()), ValidationMessages.MIDDLE_NAME.getField(), ValidationMessages.MIDDLE_NAME.getErrorMessage());
 
-        checkInvalidInformation(isValidEmail(loanApplicationRequestDTO.email()), "Email", "Invalid email format");
-        checkInvalidInformation(isValidBirthday(loanApplicationRequestDTO.birthdate()), "Birthdate", "Birthdate must be a past date and more then 18 years old");
+        checkInvalidInformation(isValidEmail(loanApplicationRequestDTO.email()), ValidationMessages.EMAIL.getField(), ValidationMessages.EMAIL.getErrorMessage());
+        checkInvalidInformation(isValidBirthday(loanApplicationRequestDTO.birthdate()), ValidationMessages.BIRTHDATE.getField(), ValidationMessages.BIRTHDATE.getErrorMessage());
 
-        checkInvalidInformation(isValidPassportSeries(loanApplicationRequestDTO.passportSeries()), "Passport Series", "Invalid passport series format");
-        checkInvalidInformation(isValidPassportNumber(loanApplicationRequestDTO.passportNumber()), "Passport Number", "Invalid passport number format");
+        checkInvalidInformation(isValidPassportSeries(loanApplicationRequestDTO.passportSeries()), ValidationMessages.PASSPORT_SERIES.getField(), ValidationMessages.PASSPORT_SERIES.getErrorMessage());
+        checkInvalidInformation(isValidPassportNumber(loanApplicationRequestDTO.passportNumber()), ValidationMessages.PASSPORT_NUMBER.getField(), ValidationMessages.PASSPORT_NUMBER.getErrorMessage());
 
         if(!invalidInformation.isEmpty()) {
             log.warn("PreScorning invalid internal data: {}", invalidInformation);

@@ -17,9 +17,8 @@ jobs:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn verify sonar:sonar \
-          #-Dsonar.host.url=https://sonarcloud.io/api/project_badges/measure?project=DmitryKh02_application&metric=alert_status \
-           -Dsonar.organization=dmitrykh02 \
-           -Dsonar.projectKey=DmitryKh02_application
+          -Dsonar.organization=dmitrykh02 \
+          -Dsonar.projectKey=DmitryKh02_application
 
       - name: Setup Java
         uses: actions/setup-java@v3

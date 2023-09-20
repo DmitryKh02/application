@@ -23,16 +23,6 @@ jobs:
           distribution: 'oracle'
           java-version: '17'
 
-#      - name: SonarCloud Scan
-#        env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-#        run: mvn verify sonar:sonar \
-#           -Dsonar.organization=dmitrykh02 \
-#           -Dsonar.projectKey=DmitryKh02_application \
-#           -Dsonar.host.url=http://localhost:9000 \
-#           -Dsonar.token=5b00512dbc90a73766ca2b197f0ffb7882e3f5bb
-
       - name: Run tests and collect coverage
         run: mvn clean package test
 

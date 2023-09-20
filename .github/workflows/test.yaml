@@ -12,28 +12,27 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-#      - name: Setup Java
-#        uses: actions/setup-java@v3
-#        with:
-#          distribution: 'oracle'
-#          java-version: '17'
-#
-#      - name: Setup Maven
-#        uses: stCarolas/setup-maven@v4.5
-#        with:
-#          maven-version: 3.8.2
-#
-#      - name: Run tests and collect coverage
-#        run: mvn clean package test
-#
-#      - name: Upload coverage reports to Codecov
-#        uses: codecov/codecov-action@v3
-#        env:
-#          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-
-
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'oracle'
+          java-version: '17'
+
+      - name: Setup Maven
+        uses: stCarolas/setup-maven@v4.5
+        with:
+          maven-version: 3.8.2
+
+      - name: Run tests and collect coverage
+        run: mvn clean package test verify sonar:sonar -Dsonar.organization=dmitrykh02 -Dsonar.projectKey=DmitryKh02_application
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

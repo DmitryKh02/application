@@ -12,6 +12,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: SonarCloud Scan
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn verify sonar:sonar \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.organization=dmitrykh02 \
+          -Dsonar.projectKey=DmitryKh02_application
+
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
@@ -24,10 +33,7 @@ jobs:
           maven-version: 3.8.2
 
       - name: Run tests and collect coverage
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn clean package test verify sonar:sonar -Dsonar.organization=dmitrykh02 -Dsonar.projectKey=DmitryKh02_application
+        run: mvn clean package test
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3

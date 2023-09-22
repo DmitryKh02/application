@@ -26,7 +26,7 @@ jobs:
       - name: Build project
         run: mvn package -Dmaven.test.skip
 
-  code-test:
+  code-cov-test:
     runs-on: ubuntu-latest
     needs: build
     steps:

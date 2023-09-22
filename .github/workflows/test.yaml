@@ -24,7 +24,7 @@ jobs:
           java-version: '17'
 
       - name: Build project
-        run: mvn clean package
+        run: mvn package -Dmaven.test.skip
 
   test:
     runs-on: ubuntu-latest
